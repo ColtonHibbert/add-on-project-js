@@ -174,6 +174,10 @@ x is 4 and y is 3
             >=	        greater than or equal to
             <=	        less than or equal to
             ?	        ternary operator
+                            variablename = (condition) ? value1:value2 
+            when doing comparisions between types strings will get converted to numbers
+            "" converts to 0
+            non-numeric strings convert to NaN which is a falsy value
         Logical        
             Operator	Description
             &&	        logical and
@@ -359,27 +363,271 @@ x is 4 and y is 3
 /*
     Number Methods and Properties
         Properties
-            Property	        Description
-            constructor	        Returns the function that created JavaScript's Number prototype
-            MAX_VALUE	        Returns the largest number possible in JavaScript
-            MIN_VALUE	        Returns the smallest number possible in JavaScript
-            NEGATIVE_INFINITY	Represents negative infinity (returned on overflow)
-            NaN	                Represents a "Not-a-Number" value
-            POSITIVE_INFINITY	Represents infinity (returned on overflow)
-            prototype	        Allows you to add properties and methods to an object
+            number.
+                Property	        Description
+                constructor	        Returns the function that created JavaScript's Number prototype
+                MAX_VALUE	        Returns the largest number possible in JavaScript
+                MIN_VALUE	        Returns the smallest number possible in JavaScript
+                NEGATIVE_INFINITY	Represents negative infinity (returned on overflow)
+                NaN	                Represents a "Not-a-Number" value
+                POSITIVE_INFINITY	Represents infinity (returned on overflow)
+                prototype	        Allows you to add properties and methods to an object
         Methods
-            isFinite()	Checks whether a value is a finite number
-            isInteger()	Checks whether a value is an integer
-            isNaN()	Checks whether a value is Number.NaN
-            isSafeInteger()	Checks whether a value is a safe integer
-            toExponential(x)	Converts a number into an exponential notation
-            toFixed(x)	Formats a number with x numbers of digits after the decimal point
-            toLocaleString()	Converts a number into a string, based on the locale settings
-            toPrecision(x)	Formats a number to x length
-            toString()	Converts a number to a string
-            valueOf()	Returns the primitive value of a number
+            number.
+                isFinite()	Checks whether a value is a finite number
+                isInteger()	Checks whether a value is an integer
+                isNaN()	Checks whether a value is Number.NaN
+                isSafeInteger()	Checks whether a value is a safe integer
+                toExponential(x)	Converts a number into an exponential notation
+                toFixed(x)	Formats a number with x numbers of digits after the decimal point
+                toLocaleString()	Converts a number into a string, based on the locale settings
+                toPrecision(x)	Formats a number to x length
+                toString()	Converts a number to a string
+                valueOf()	Returns the primitive value of a number
 */
 /*
-                    
+    Array Properties and Methods
+        Properties
+            array.
+                Property	Description
+                constructor	Returns the function that created the Array object's prototype
+                length	Sets or returns the number of elements in an array
+                prototype	Allows you to add properties and methods to an Array object 
+        Methods
+            array.
+                Method	        Description
+                concat()	    Joins two or more arrays, and returns a copy of the joined arrays
+                copyWithin()	Copies array elements within the array, to and from specified positions
+                entries()	    Returns a key/value pair Array Iteration Object
+                every()	        Checks if every element in an array pass a test
+                fill()	        Fill the elements in an array with a static value
+                filter()	    Creates a new array with every element in an array that pass a test
+                find()	        Returns the value of the first element in an array that pass a test
+                findIndex()	    Returns the index of the first element in an array that pass a test
+                forEach()	    Calls a function for each array element
+                from()	        Creates an array from an object
+                includes()	    Check if an array contains the specified element
+                indexOf()	    Search the array for an element and returns its position
+                isArray()	    Checks whether an object is an array
+                join()	        Joins all elements of an array into a string
+                keys()	        Returns a Array Iteration Object, containing the keys of the original array
+                lastIndexOf()	Search the array for an element, starting at the end, and returns its position
+                map()	        Creates a new array with the result of calling a function for each array element
+                pop()	        Removes the last element of an array, and returns that element
+                push()	        Adds new elements to the end of an array, and returns the new length
+                reduce()	    Reduce the values of an array to a single value (going left-to-right)
+                reduceRight()	Reduce the values of an array to a single value (going right-to-left)
+                reverse()	    Reverses the order of the elements in an array
+                shift()	        Removes the first element of an array, and returns that element
+                slice()	        Selects a part of an array, and returns the new array
+                some()	        Checks if any of the elements in an array pass a test
+                sort()	        Sorts the elements of an array
+                splice()	    Adds/Removes elements from an array
+                toString()	    Converts an array to a string, and returns the result
+                unshift()	    Adds new elements to the beginning of an array, and returns the new length
+                valueOf()	    Returns the primitive value of an array                  
 */
+/*
+    Sorting Arrays
+        array.sort()
+            sorts values as strings, alphabetically 
+                    var fruits = ["Banana", "Orange", "Apple", "Mango"];
+                    fruits.sort();        // Sorts the elements of fruits
+        array.reverse(), just like sort
+        Sorting numbers
+            array.sort(function(a,b) {return value - value})
+                provide a comparing function
+                sorting will compare two values, it will sort based on negative, zero, positive
+                if the first value is negative in a - b order it means it's smaller and will sort accordingly
+                    sort ascending, 
+                    default, normal order is a - b, if a i
+                        var points = [40, 100, 1, 5, 25, 10];
+                        points.sort(function(a, b){return a - b});
+                    sort descending
+                    just switch the order to b - a
+                        var points = [40, 100, 1, 5, 25, 10];
+                        points.sort(function(a, b){return b - a});
+                uses indexes after array is sorted for highest and lowest values
+            Math.max(arr)
+                find the highest value, no sorting
+            Math.min(arr)
+                find the lowest value, no sorting    
+        Sorting array of Objects
+            cars.sort(function(a, b){return a.year - b.year});
+                just compare the desired properties of each object
+*/
+/*
+    JS DATES
+        the Date Object allows working with dates
+        date objects 
+            are static, computer time is ticking but Date Objects are not
+            new Date()
+                date constructor, 4 ways to make dates
+                new Date()
+                new Date(year, month, day, hours, minutes, seconds, milliseconds)
+                    must at least submit year and month or it will be treated as milliseconds
+                new Date(milliseconds)
+                    Zero time is January 01, 1970 00:00:00 UTC
+                    milliseconds since zero time
+                new Date(date string)
+        JS date output String, always this format
+            Tue Mar 24 2015 18:00:00 GMT-0600 (Mountain Daylight Time)
+            toString() method is automatically called when displaying date objects
+        date/time format details
+            JS months go from 0-11, 
+            days of month, weeks etc start at 1
+            UTC and GMT are the same
+            ISO is the standard
+            other types of formats are accepted, not recommended
+                Short Date	"03/25/2015"
+                Long Date	"Mar 25 2015" or "25 Mar 2015"
+        Time formats
+            INPUTS
+            (YYYY-MM-DD) ISO Date
+            (YYYY-MM-DDTHH:MM:SSZ) ISO DATE-TIME
+                T is to seperate for time and Z is a delimiter
+                if you want to base off time zone add or subtract from the UTC
+                new Date("2015-03-25T12:00:00-06:30")
+            OUTPUTS
+                Independent of input format, JavaScript will (by default) output dates in full text string format:
+                Tue Mar 24 2015 18:00:00 GMT-0600 (Mountain Daylight Time) 
+        Date.parse()
+            convert a date string to milliseconds
+            Date.parse("March 21, 2012");
+        Date Object properties
+            Property            Description 
+            constructor	        Returns the function that created the Date object's prototype
+            prototype	        Allows you to add properties and methods to an object
+        Date Object methods
+            Method	            Description
+            getDate()	        Returns the day of the month (from 1-31)
+            getDay()	        Returns the day of the week (from 0-6)
+            getFullYear()	    Returns the year
+            getHours()	        Returns the hour (from 0-23)
+            getMilliseconds()	Returns the milliseconds (from 0-999)
+            getMinutes()	    Returns the minutes (from 0-59)
+            getMonth()	        Returns the month (from 0-11)
+            getSeconds()	    Returns the seconds (from 0-59)
+            getTime()	        Returns the number of milliseconds since midnight Jan 1 1970, and a specified date
+            getTimezoneOffset()	Returns the time difference between UTC time and local time, in minutes
+            getUTCDate()	    Returns the day of the month, according to universal time (from 1-31)
+            getUTCDay()	        Returns the day of the week, according to universal time (from 0-6)
+            getUTCFullYear()	Returns the year, according to universal time
+            getUTCHours()	    Returns the hour, according to universal time (from 0-23)
+            getUTCMilliseconds()	Returns the milliseconds, according to universal time (from 0-999)
+            getUTCMinutes()     Returns the minutes, according to universal time (from 0-59)
+            getUTCMonth()	    Returns the month, according to universal time (from 0-11)
+            getUTCSeconds()	    Returns the seconds, according to universal time (from 0-59)
+            now()	            Returns the number of milliseconds since midnight Jan 1, 1970
+            parse()	            Parses a date string and returns the number of milliseconds since January 1, 1970
+            setDate()	        Sets the day of the month of a date object
+            setFullYear()	    Sets the year of a date object
+            setHours()	        Sets the hour of a date object
+            setMilliseconds()	Sets the milliseconds of a date object
+            setMinutes()	    Set the minutes of a date object
+            setMonth()	        Sets the month of a date object
+            setSeconds()	    Sets the seconds of a date object
+            setTime()	        Sets a date to a specified number of milliseconds after/before January 1, 1970
+            setUTCDate()	    Sets the day of the month of a date object, according to universal time
+            setUTCFullYear()	Sets the year of a date object, according to universal time
+            setUTCHours()	    Sets the hour of a date object, according to universal time
+            setUTCMilliseconds()	Sets the milliseconds of a date object, according to universal time
+            setUTCMinutes()	    Set the minutes of a date object, according to universal time
+            setUTCMonth()	    Sets the month of a date object, according to universal time
+            setUTCSeconds()	    Set the seconds of a date object, according to universal time
+            toDateString()     	Converts the date portion of a Date object into a readable string
+            toISOString()	    Returns the date as a string, using the ISO standard
+            toJSON()	        Returns the date as a string, formatted as a JSON date
+            toLocaleDateString()	Returns the date portion of a Date object as a string, using locale conventions
+            toLocaleTimeString()	Returns the time portion of a Date object as a string, using locale conventions
+            toLocaleString()	Converts a Date object to a string, using locale conventions
+            toString()	        Converts a Date object to a string
+            toTimeString()  	Converts the time portion of a Date object to a string
+            toUTCString()	    Converts a Date object to a string, according to universal time
+            UTC()	            Returns the number of milliseconds in a date since midnight of January 1, 1970, according to UTC time
+            valueOf()	        Returns the primitive value of a Date object        
+*/
+/*
+    Math Object
+        Math Properties
+            Property	Description
+            E	        Returns Euler's number (approx. 2.718)
+            LN2	        Returns the natural logarithm of 2 (approx. 0.693)
+            LN10	    Returns the natural logarithm of 10 (approx. 2.302)
+            LOG2E	    Returns the base-2 logarithm of E (approx. 1.442)
+            LOG10E	    Returns the base-10 logarithm of E (approx. 0.434)
+            PI	        Returns PI (approx. 3.14)
+            SQRT1_2	    Returns the square root of 1/2 (approx. 0.707)
+            SQRT2	    Returns the square root of 2 (approx. 1.414)
+        Math Methods
+            Method	        Description
+            abs(x)	        Returns the absolute value of x
+            acos(x)	        Returns the arccosine of x, in radians
+            acosh(x)	    Returns the hyperbolic arccosine of x
+            asin(x)	        Returns the arcsine of x, in radians
+            asinh(x)	    Returns the hyperbolic arcsine of x
+            atan(x)	        Returns the arctangent of x as a numeric value between -PI/2 and PI/2 radians
+            atan2(y, x)	    Returns the arctangent of the quotient of its arguments
+            atanh(x)	    Returns the hyperbolic arctangent of x
+            cbrt(x)	        Returns the cubic root of x
+            ceil(x)	        Returns x, rounded upwards to the nearest integer
+            cos(x)	        Returns the cosine of x (x is in radians)
+            cosh(x)	        Returns the hyperbolic cosine of x
+            exp(x)      	Returns the value of Ex
+            floor(x)	    Returns x, rounded downwards to the nearest integer
+            log(x)	        Returns the natural logarithm (base E) of x
+            max(x, y, z, ..., n)	Returns the number with the highest value
+            min(x, y, z, ..., n)	Returns the number with the lowest value
+            pow(x, y)	    Returns the value of x to the power of y
+            random()	    Returns a random number between 0 and 1
+            round(x)	    Rounds x to the nearest integer
+            sin(x)	        Returns the sine of x (x is in radians)
+            sinh(x)     	Returns the hyperbolic sine of x
+            sqrt(x)	        Returns the square root of x
+            tan(x)	        Returns the tangent of an angle
+            tanh(x)	        Returns the hyperbolic tangent of a number
+            trunc(x)	    Returns the integer part of a number (x)
+*/
+/*
+    Conditionals
+        ternary
+            const val = (condition) ? return val1 : val2;
+
+        if(condition) {
+            code
+        }
+
+        if(condition) {
+            code
+        } else {
+            default
+        }
+
+        if(condition) {
+            code
+        } else if(condition) {
+            code
+        } else if(condition) {
+            code
+        } else {
+            default 
+        }
+
+        switch(expression) {
+            case x:
+                // code block
+                day = "Sunday";
+                break;
+            case y:
+                // code block
+                day = "Monday";
+                break;
+            default:
+                // code block
+        }
+            without breaks all cases below the first one triggered will also run, until it finds a break
+            a break will break it out of the switch block
+            switch uses === strict comparison
+*/
+
 
