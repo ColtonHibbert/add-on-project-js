@@ -629,5 +629,87 @@ x is 4 and y is 3
             a break will break it out of the switch block
             switch uses === strict comparison
 */
+/*
+    Loops
+        for - loops through a block of code a number of times
+            for (statement 1; statement 2; statement 3) {
+                // code 
+            }
+            Statement 1 is executed (one time) before the execution of the code block.
+            Statement 2 defines the condition for executing the code block.
+            Statement 3 is executed (every time) after the code block has been executed.
+            technically all three statements are optional, it makes sense to use them though 
+        for/in - loops through the properties of an object
+            for(variableName in Object) {
+                //code
+            }
+        for/of - loops through the values of an iterable object, 
+            Arrays
+            Strings
+            Maps
+            NodeLists
+                for (variable of iterable) {
+                    // code
+                }
+
+        while - loops through a block of code while a specified condition is true
+                update your condition or provide a break to stop loop
+                while (condition) {
+                    // code 
+                }
+        do/while - also loops through a block of code while a specified condition is true
+                runs code at least once
+                do {
+                    // code
+                }
+                while (condition);
+        break;
+            breaks out of loop
+        continue;
+            jumps out of current iteration and starts next iteration
+        labelname
+            a label/name can be given to break and continue to reference them,
+            doesn't really do anything for continue statement
+            you can use label to refer to an entire code block and break out
+                list: {
+                    text += cars[0] + "<br>";
+                    text += cars[1] + "<br>";
+                    break list;
+                    text += cars[2] + "<br>";
+                    text += cars[3] + "<br>";
+                }
+*/
+/*
+    Type conversion
+        data types that can hold values
+            string
+            number
+            boolean
+            object
+            function, function is it's own thing even though it's of object??
+        6 types of objects
+            Object
+            Date
+            Array
+            String
+            Number
+            Boolean
+        constructor property
+            returns the constructor function for all variables, so you can figure out what type it is, 
+            can do more than just typeof operator
+                "John".constructor                // Returns function String()  {[native code]}
+                new Date().constructor            // Returns function Date()    {[native code]}
+                function () {}.constructor        // Returns function Function(){[native code]}
+            function isArray(myArray) {
+                return myArray.constructor === Array;
+            }
+        +, aka unary operator
+            plus BEFORE a variable will turn it into a number, no other operands can be before it, it does not seem consitent
+                var y = "5"; // y is a string
+                var x = + y; // x is a number
+                (+"5" + "2") // returns string 52 not number 7 for some reason
+            plus after a STRING variable says hey we're concatinating the next thing into a string
+*/
+
 
 
