@@ -756,15 +756,75 @@ x is 4 and y is 3
                     \xxx	    Find the character specified by an octal number xxx
                     \xdd	    Find the character specified by a hexadecimal number dd
                     \udddd	    Find the Unicode character specified by a hexadecimal number dddd
-        modifiers
-            g, global match meaning don't stop at the first match
-            i, case insensitive matching
-            m, multiline matching
+            modifiers
+                g, global match meaning don't stop at the first match
+                i, case insensitive matching
+                m, multiline matching
+        RegExp Object Properties
+            Property	    Description
+            constructor	    Returns the function that created the RegExp object's prototype
+            global	        Checks whether the "g" modifier is set
+            ignoreCase	    Checks whether the "i" modifier is set
+            lastIndex	    Specifies the index at which to start the next match
+            multiline	    Checks whether the "m" modifier is set
+            source	        Returns the text of the RegExp pattern
+        RegExp Object Methods
+            Method	    Description 
+            exec()	    Tests for a match in a string. Returns the first match
+            test()	    Tests for a match in a string. Returns true or false
+            toString()	Returns the string value of the regular expression          
+*/
+/*
+    Errors
+        error Object 
+            2 properties
+                name, name of the message
+                message, the message
+            name values,
+                Error Name	    Description
+                EvalError	    An error has occurred in the eval() function, or can be Syntax Error
+                RangeError	    A number "out of range" has occurred
+                                    num.toPrecision(500);   // A number cannot have 500 significant digits
+                ReferenceError	An illegal reference has occurred
+                                    let x = 1;
+                                    x = y + 1;   // y cannot be referenced (used)   
+                SyntaxError	    A syntax error has occurred
+                TypeError	    A type error has occurred
+                                    num.toUpperCase();   // You cannot convert a number to upper case
+                URIError	    An error in encodeURI() has occurred
+                                    decodeURI("%%%");   // You cannot URI decode percent signs
+*/
+/*
+    try, catch, finally, throw
+        try,
+            try statements let you test a block of code for errors.
+        catch, 
+            catch statements let you handle the error
+        finally,
+            finally statement lets you execute code, after try and catch, regardless of the result.
+        try {
+            Block of code to try
+        }
+        catch(err) {
+            Block of code to handle errors
+        }
+        finally {
+            Block of code to be executed regardless of the try / catch result
+        }
 
-
-
-
-            
+        throw, 
+            the throw statement allows you to create a custom error
+            you can throw an exception (throw an error)
+            use if statements, etc to set up how you will throw them
+            exceptions can be
+                String, 
+                    throw "Too big";
+                Number,
+                    throw 500; 
+                Boolean,
+                    throw false;
+                Object,
+                    throw objName;
 */
 
 
