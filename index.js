@@ -9,6 +9,33 @@
             you can also be explicit whenever you want
     Single Thread Non-Blocking Language that can be Asynchronous
     use strict; is the unofficial default, all transpilers will use it, must be declared before anything else
+        compiling a string literal like "hello"; or "use strict"; has no side effects, it compiles to a non existing variable and dies but the compiler knows what "use strict"; means
+        'use strict' just means hey lets just implement some correct coding practices and add some features
+        cannot use undeclared variables, 
+            undeclared variables meaning variable keyword like var not used, 
+            prior to use strict behavior was to create a global var automatically if you didn't use the keyword
+        can't duplicate parameter names
+            function(p1,p1) {}
+        octal numerals not allowed
+            var x = 010; // error
+        octal escape characters not allowed
+            var x = "\010";  // error
+        writing to a read property not allowed
+            var obj = {};
+            Object.defineProperty(obj, "x", {value:0, writable:false});
+            obj.x = 3.14; //  error
+        writing to a get only property not allowed
+            var obj = {get x() {return 0} };
+            obj.x = 3.14; // error
+        deleting an undeletable property is not allowed
+            delete Object.prototype; // error
+        certain keywords, properties, default methods can't be used as variable names
+        with statement is NOT allowed
+        eval(), is NOT allowed to create variables from the scope from which it was called, for security
+            eval ("var x = 2");
+            alert (x); //  error
+        this keyword,
+            if an object is not specified, returns undefined, instead of the window  
 */
 /*
     Scripts
@@ -307,11 +334,32 @@ x is 4 and y is 3
                     var, function scope, anything declared with var is available anywhere in the function    
 */
 /*
-    Scope
+    Scope and Variables
         Prior to ES2015 there was only global scope and function scope
-        //var is function level scope, 
-        //?declarations get hoisted, not initializations
-                    
+        global scope and function scope for var still apply
+        Global Scope
+            global object or window object if browser
+        Function Scope
+            Var, 
+                var in functions are isolated in the function scope
+                var was available anywhere else inside that level of the function, any other code blocks, if statements etc
+                    meaning var was available ANYWHERE inside that level of the function, 
+            Deeper nested functions have their own scope
+        Engine looks for variables at the current scope level and goes up 1 level at a time looking for it until the global level, if it can't find it BAM! reference error
+        Var in Global scope belong to global/window object
+        Let and Const in Global Scope do not belong to global/window object, where do they belong?
+        Declarations are hoisted, meaning put at the top of the script when engine goes through it
+            declaration meaning you declare it, then you use it before it's been defined lower in the code
+            var x;
+            //code use x here
+            // var answer = x + 5, so answer would be 7 because of hoisting
+            x = 2;
+            It is bad code to Hoist
+        Initializations are NOT hoisted, meaning you CANNOT use code before it's initialized
+            var x = 12;
+        
+        
+
 */
 /*
     Events
