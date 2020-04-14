@@ -709,6 +709,62 @@ x is 4 and y is 3
                 var x = + y; // x is a number
                 (+"5" + "2") // returns string 52 not number 7 for some reason
             plus after a STRING variable says hey we're concatinating the next thing into a string
+        //read ydkjs yet for type conversions rules
+*/
+/*
+    Regular Expression
+        aka search pattern
+        used for text and text replace
+        two most common methods to use RegEx
+        .search(regex)
+        .replace(regex)
+        syntax
+            /pattern/modifiers;
+        patterns
+            range
+                [], brackets find any range of characters
+                (), parentheses same as brackets?
+            quantifiers, these go after a character or a range
+                {number}, specify exact quantity 
+                    {X,Y}, or from X to Y quantity
+                    {X,} matches at least X quantity but can be more, no top limit
+                +, one additional
+                *, zero or many
+                ?, zero or one
+                ^, find at the beginning, as long as it's not inside brackets or that means NOT
+                $, find at the end
+                ?=stringname, Matches any string that is followed by a specific string 
+                ?!stringname, Matches any string that is not followed by a specific string n 
+
+            metacharacters, find specific characters
+                    Metachar	Description
+                    .	        Find a single character, except newline or line terminator
+                    \w	        Find a word character
+                    \W	        Find a non-word character
+                    \d	        Find a digit
+                    \D	        Find a non-digit character
+                    \s	        Find a whitespace character
+                    \S	        Find a non-whitespace character
+                    \b	        Find a match at the beginning/end of a word, beginning like this: \bHI, end like this: HI\b
+                    \B	        Find a match, but not at the beginning/end of a word
+                    \0	        Find a NUL character
+                    \n	        Find a new line character
+                    \f	        Find a form feed character
+                    \r	        Find a carriage return character
+                    \t	        Find a tab character
+                    \v	        Find a vertical tab character
+                    \xxx	    Find the character specified by an octal number xxx
+                    \xdd	    Find the character specified by a hexadecimal number dd
+                    \udddd	    Find the Unicode character specified by a hexadecimal number dddd
+        modifiers
+            g, global match meaning don't stop at the first match
+            i, case insensitive matching
+            m, multiline matching
+
+
+
+
+            
 */
 
 
