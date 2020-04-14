@@ -34,7 +34,7 @@
         eval(), is NOT allowed to create variables from the scope from which it was called, for security
             eval ("var x = 2");
             alert (x); //  error
-        this keyword,
+        this keyword in functions,
             if an object is not specified, returns undefined, instead of the window  
 */
 /*
