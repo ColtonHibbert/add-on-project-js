@@ -304,7 +304,8 @@ x is 4 and y is 3
                     access properties with
                         . object notation
                         ["value"] bracket notation
-                    functions can also be stored as properties, a method is a function stored as a property
+                    functions can also be stored as properties, an OBJECT METHOD is a function stored as a property
+                    methods are actions that can be performed on objects
                         var person = {
                             firstName:"John", 
                             function getAge() { return 24 }, 
@@ -335,31 +336,119 @@ x is 4 and y is 3
 */
 /*
     Scope and Variables
-        Prior to ES2015 there was only global scope and function scope
-        global scope and function scope for var still apply
-        Global Scope
-            global object or window object if browser
-        Function Scope
-            Var, 
-                var in functions are isolated in the function scope
-                var was available anywhere else inside that level of the function, any other code blocks, if statements etc
-                    meaning var was available ANYWHERE inside that level of the function, 
-            Deeper nested functions have their own scope
-        Engine looks for variables at the current scope level and goes up 1 level at a time looking for it until the global level, if it can't find it BAM! reference error
-        Var in Global scope belong to global/window object
-        Let and Const in Global Scope do not belong to global/window object, where do they belong?
-        Declarations are hoisted, meaning put at the top of the script when engine goes through it
-            declaration meaning you declare it, then you use it before it's been defined lower in the code
-            var x;
-            //code use x here
-            // var answer = x + 5, so answer would be 7 because of hoisting
-            x = 2;
-            It is bad code to Hoist
-        Initializations are NOT hoisted, meaning you CANNOT use code before it's initialized
-            var x = 12;
-        
-        
+        Global and Function Scope
+            Prior to ES2015 there was only global scope and function scope
+            global scope and function scope for var still apply
+            Global Scope
+                global object or window object if browser
+            Function Scope
+                Var, 
+                    var in functions are isolated in the function scope
+                    var was available anywhere else inside that level of the function, any other code blocks, if statements etc
+                        meaning var was available ANYWHERE inside that level of the function, 
+                Deeper nested functions have their own scope
+                var x = "hello"; // global scope
+                function outer() {
+                    var x = "ni hao"; // function scope
+                    function inner() {
+                        var x = "hola"; // deeper nested function scope
+                    }
+                    {
+                        var x = "bo dia" // var doesn't care about block scope, only function scope
+                                         // we just changed "ni hao"
+                    }
+                }
+                VAR LOOPS
+                    declaring var in a for loop in the statement declaration still affects variables outside of the loop
+                    aka it will redeclare the variable outside of the loop
+                       var i = 5;
+                        for (var i = 0; i < 10; i++) {
+                            // some statements
+                        }
+                        // Here i is 10 
+            Engine looks for variables at the current scope level and goes up 1 level at a time looking for it until the global level, if it can't find it BAM! reference error
+            Var in Global scope belongs to global/window object
+            Let and Const in Global Scope do not belong to global/window object, where do they belong though?
+        HOISTING
+            Var Declarations only are hoisted, meaning put at the top of the script when engine goes through it
+                declaration meaning you declare it, then you use it before it's been defined lower in the code
+                var x;
+                //code use x here
+                // var answer = x + 5, so answer would be 7 because of hoisting
+                x = 2;
+                It is bad code to Hoist
+            Var Initializations are NOT hoisted, meaning you CANNOT use code before it's initialized
+                initialization meaning declared AND assigned
+                    // can't use x up here, 
+                    var x = 12;
+            Let and Const 
+                declarations are not Hoisted
 
+            Functions 
+                Functions ARE hoisted
+                means they can be called before they are declared
+            Classes 
+                NOT Hoisted
+        BLOCK scope, 
+            'use strict'; allows block scope
+            var scope recap, it works the same when block scope is enabled
+                var still follows old global and function scope no matter what, 
+                    {
+                        var x = 2;
+                    }
+                    // x CAN be used here,  
+                redeclaring var x will still affect any other var x thats only block scoped, 
+                var ONLY cares about function scoping
+                if you redeclare inside a function or more nested functions you are good
+            LET and CONST
+                allow Block Scoping to be used
+                    {
+                        let x = 2;
+                    }
+                    // NO x
+                Blocks include any time code blocks are used, 
+                    {code}, regular code blocks
+                    if() {code}, if statements
+                    function() {code}, functions, etc
+                    any time you see a code block
+                LET 
+                    the value and type of the let variable can be changed
+                    you can reassign it and redeclare it
+                CONST
+                    the type of the variable cannot be changed
+                    for primitives the value cannot be changed
+                    for complex types aka objects the properties of the object CAN be changed
+                    basically you can't redeclare it or reassign it unless we're just changing object properties
+                LOOPS
+                    declaring let in a for loop statement means the variable is ONLY VISIBLE INSIDE the loop and does not affect outside variables
+                        let i = 5;
+                        for (let i = 0; i < 10; i++) {
+                            // some statements
+                        }
+                        // Here i is 5
+        REDECLARE
+            var
+                you can redeclare the same VAR variable in same scope 
+                    var y = "hello"
+                    var y = "hi"
+            let
+                you CANNOT redeclare the same let variable in same scope
+                    let x = "hello"
+                    let x = "hi" // NOPE
+            var and let 
+                you CANNOT mix redeclaring a let and var variable on same scope, 
+                    var x = "hello"
+                    let x = "hi"// NOPE
+            const 
+                once you declare const you're stuck with it per scope of course  
+        REASSIGN
+            let can be reassigned
+            var can be reassigned
+            const CANNOT be reassigned, you need to also assign a value when you declare it
+        CONST 
+            keyword const refers to a constant reference to a value
+            because of that you can't change const primitives but you can change the properties
+            of constant objects
 */
 /*
     Events
@@ -874,6 +963,134 @@ x is 4 and y is 3
                 Object,
                     throw objName;
 */
+/*
+    THIS keyword
+        1 In a method, this refers to the owner object, owner object meaning the object that called the function, not where it was defined, method meaning a function that's a property of an object
+        2 Alone, this refers to the global object.
+        3 In a function, in strict mode, this is undefined. 
+        4 In a function not in strict mode, this refers to the global object.
+        5 In an event, this refers to the element that received the event, aka the element of the event
+        6 explicit binding, Methods like call(), and apply() can refer this to any object. means you can call functions and stuff as if they were actually on a particular object. these are explicit ways to bind
+           
+        explicit binding example 
+            call() and apply()
+                var person1 = {
+                    fullName: function() {
+                        return this.firstName + " " + this.lastName;
+                    }
+                }
+                var person2 = {
+                    firstName:"John",
+                    lastName: "Doe",
+                }
+                person1.fullName.call(person2);  // Will return "John Doe"
 
+        More Here .bind(this) method is used to...
+
+        arrow functions
+            in regular functions this refers to the object that called it, window, document, button, whatever
+            in ARROW functions this refers to the OBJECT THAT DEFINED THE ARROW FUNCTION, Always
+                other functions and objects can call that arrow function but the THIS keyword still refers to the DEFINING object
+            let hello = () => {
+                document.getElementById("demo").innerHTML += this;
+            }
+            // hello was defined on the window object, this refers to the window object
+            //The window object calls the function, this refers to the window object
+            window.addEventListener("load", hello);
+            //A button object calls the function, this still refers to the window object
+            document.getElementById("btn").addEventListener("click", hello); 
+*/
+/*
+    CLASSES
+        class 
+            class is a type of function,
+            the class keyword instead of function is used
+            properties are assigned in the constructor() method, always add it
+            constructor method is called each time a class object is initialized 
+            if you don't add a constructor method then JS will add an invisible and empty one automatically
+            you can also add methods to the class, these also become assigned properties, they appear on the __proto__ of the instance object    
+                class Car {
+                    constructor(brand) {
+                        this.carname = brand;
+                    }
+                    present(x) {
+                        return x + "I have a " + this.carname;
+                    }
+                }
+        class Object/Prototype/instantiation 
+            an instance of the class is a prototype    
+                let mycar = new Car("Ford");
+                document.getElementById("demo").innerHTML = mycar.present('Hello');
+        Static Methods
+            static methods are defined on the class itself and are not assigned as properties
+            this means you cannot call the method on the instantiation/class object/prototype
+            you have to call the method by accessing the class itself and pass in parameters as needed
+                Notice the static keyword
+                class Car {
+                    constructor(brand) {
+                        this.carname = brand;
+                    }
+                    static hello(x) {
+                        return "Hello " + x.carname;
+                    }
+                }
+                mycar = new Car("Ford");
+                document.getElementById("demo").innerHTML = Car.hello(mycar);
+        Inheritance
+            extends keyword needed
+            a class created with extends keyword will inherit all methods and properties from the other class
+            super(), 
+                super() method refers to the parent class, you get access to everything in the parent, it's constructor method, properties, methods 
+                    technically it's just object linked to another object, not truly a parent
+                called first thing in the constructor of the extends class
+                we pass in arguments in the instantiation of the extends class
+                    the extends class instantiation still needs the data for the parent class as well because it will call it with super(data)
+                class Car {
+                    constructor(brand) {
+                        this.carname = brand;
+                    }
+                    present() {
+                        return 'I have a ' + this.carname;
+                    }
+                }
+                class Model extends Car {
+                    constructor(brand, mod) {
+                        super(brand);
+                        this.model = mod;
+                    }
+                    show() {
+                        return this.present() + ', it is a ' + this.model;
+                    }
+                }
+                mycar = new Model("Ford", "Mustang");
+                document.getElementById("demo").innerHTML = mycar.show();
+        Getters and Setters
+            classes allow getters and setters
+            use to get and set properties
+            do something special with a value before returning it or setting it
+            do NOT use () parentheses when accessing a getter or setter method
+            get and set keywords used   
+            _ underscore may be used as convention on getter/setter properties to seperate them from the get/set methods
+                class Car {
+                    constructor(brand) {
+                        this._carname = brand;
+                    }
+                    get carname() {
+                        return this._carname;
+                    }
+                    set carname(x) {
+                        this._carname = x;
+                    }
+                }
+                mycar = new Car("Ford");
+                mycar.carname = "Volvo";
+                document.getElementById("demo").innerHTML = mycar.carname;
+        Hoisting
+            classes are not hoisted even though they are technically functions
+*/
+/*
+    debugger;
+        keyword to pause the execution at this stage of the code, like pause in the debugger in the console
+*/
 
 
