@@ -1092,5 +1092,63 @@ x is 4 and y is 3
     debugger;
         keyword to pause the execution at this stage of the code, like pause in the debugger in the console
 */
+/*
+    Objects
+        Create objects
+            object literal
+                Define and create a single object, using an object literal
+                    var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+            new keyword
+                Define and create a single object, with the keyword new
+                don't use this it's slower and harder to read
+                    var person = new Object();
+                    person.firstName = "John";
+                    person.lastName = "Doe";
+            object constructor
+                Define an object constructor, and then create objects of the constructed type.
+            Object.create()
+                create an object with this function
+        Reassigning
+            reassigning object variables are reference ONLY
+            another variable just means a different name to reference the same object
+                var person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"}
+                var x = person;
+                x.age = 10;           // This will change both x.age and person.age
+        Properties
+            properties are unordered
+            properties can be changed, added, deleted, and read only if specified
+            access via
+                objName.notation
+                objName["string"] bracket notation
+                objName[expression] bracket notation can have a variable or expression but it needs to return a string
+                    let x = "age"
+                    objName[x]
+            add properties, just give it the property
+                person.nationality = "English";
+            delete properties, 
+                delete keyword needed, deletes the entire property aka key:value
+                The delete operator should not be used on predefined JavaScript object properties. It can crash your application.
+                    delete person.age;
+            property attributes
+                all properties have a name and a value
+                there are 4 attributes
+                    value
+                        this would be the key:value
+                    enumerable
+                    configurable
+                    writable
+            prototype properties
+                delete keyword does not delete inherited properties, probably because they are a reference
+                you need to delete the prototype property
+        Methods
+            () are needed to call the method, otherwise you will return the definition of the function
+                objName.method()
+        
+
+            
+
+            
+    
+*/
 
 
