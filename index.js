@@ -1005,6 +1005,7 @@ x is 4 and y is 3
         class 
             class is a type of function,
             the class keyword instead of function is used
+            an instantiation is made with an onbject function constructor, that is why this references the object not undefined like a normal function
             properties are assigned in the constructor() method, always add it
             constructor method is called each time a class object is initialized 
             if you don't add a constructor method then JS will add an invisible and empty one automatically
@@ -1094,6 +1095,7 @@ x is 4 and y is 3
 */
 /*
     Objects
+        objects are complex data types, not primitive
         Create objects
             object literal
                 Define and create a single object, using an object literal
@@ -1135,20 +1137,275 @@ x is 4 and y is 3
                     value
                         this would be the key:value
                     enumerable
+                        true or false
                     configurable
+                        true or false
                     writable
+                        true or false
+                        Object.defineProperty(person, "language", {writable:false});
             prototype properties
                 delete keyword does not delete inherited properties, probably because they are a reference
                 you need to delete the prototype property
         Methods
             () are needed to call the method, otherwise you will return the definition of the function
                 objName.method()
+        Accessors, aka Getters and Setters
+            get and set keywords
+            access the methods without using parentheses() 
+                var person = {
+                    firstName: "John",
+                    lastName : "Doe",
+                    language : "en",
+                    set lang(lang) {
+                        this.language = lang;
+                    },
+                    get lang() {
+                        return this.language;
+                    }
+                };
+                document.getElementById("demo").innerHTML = person.lang;
+                person.lang = "new language";
+            Obect.defineProperty(), can be used to add getters and setters
+                var obj = {counter : 0};
+                Object.defineProperty(obj, "reset", {
+                    get : function () {this.counter = 0;}
+                });
+        Constructors
+            literals and single object constructor aka new ObjectName() alone just make a single object
+            a blueprint aka Class or Object Constructor Function is needed to make many objects of the same "object type"
+            you still need to create instantiations with the new keyword and a function object will be created
+            Capitalize your Constructor Function Name
+            THIS keyword
+                In a constructor function THIS does not have a value. 
+                It is a substitute for the new object. 
+                The value of THIS will become the new object when a new object is created.
+                    meaning the function itself does not have a this value
+                    you create a FUNCTION OBJECT when you instantiate/use the new keyword and that FUNCTION OBJECT that gets created allows you to use this
+            A plain constructor function is JUST a function
+            //Constructor Function, aka could also be seen as class
+                function Person(first, last, age, eye) {
+                    //add properties
+                    this.firstName = first;
+                    this.lastName = last;
+                    this.age = age;
+                    this.eyeColor = eye;
+                    //add methods
+                    this.name = function() {return this.firstName + " " + this.lastName;};
+                }
+            //function objects, objects created with new keyword and passed values
+                var myFather = new Person("John", "Doe", 50, "blue");
+                var myMother = new Person("Sally", "Rally", 48, "green");
+            Adding Properties or Methods to constructor functions, 
+                prototype is needed
+                    Person.prototype.nationality = "English";
+            Built In Constructors
+                var x1 = new Object();    // A new Object object
+                var x2 = new String();    // A new String object
+                var x3 = new Number();    // A new Number object
+                var x4 = new Boolean();   // A new Boolean object
+                var x5 = new Array();     // A new Array object
+                var x6 = new RegExp();    // A new RegExp object
+                var x7 = new Function();  // A new Function object
+                var x8 = new Date();      // A new Date object
+                // Math object is global and new can't be used on it
+        Prototypes
+            All JS objects inherit properties and methods from a prototype
+            Object.prototype is top of the inheritance chain, inhertiance looks like
+                Date.prototype
+                    Date Object
+                Array.prototype
+                    Array Object
+                Person.prototype, aka a custom object
+            All objects inherit methods and properties from Object.prototype, although they may be overridden.
+            other constructors' prototypes override the constructor property and provide their own toString() methods
+            JS may automatically override these properties, 
+            ONLY MODIFY YOUR OWN PROTOTYPES, meaning my custom objects etc
+            delete operator to delete properties 
+            Object.prototype Properties
+               Property                             Description
+               Object.prototype.constructor         Specifies the function that creates an object's prototype.
+               Object.prototype.__proto__           Points to the object which was used as prototype when the object was instantiated.
+               Object.prototype.__noSuchMethod__    Allows a function to be defined that will be executed when an undefined object member is called as a method.
+            Object.prototype Methods
+                Method                                  Description
+                Object.prototype.__defineGetter__()     Associates a function with a property that, when accessed, executes that function and returns its return value.
+                Object.prototype.__defineSetter__()     Associates a function with a property that, when set, executes that function which modifies the property.
+                Object.prototype.__lookupGetter__()     Returns the function associated with the specified property by the __defineGetter__() method.
+                Object.prototype.__lookupSetter__()     Returns the function associated with the specified property by the __defineSetter__() method.
+                Object.prototype.hasOwnProperty()       Returns a boolean indicating whether an object contains the specified property as a direct property of that object and not inherited through the prototype chain.
+                Object.prototype.isPrototypeOf()        Returns a boolean indicating whether the object this method is called upon is in the prototype chain of the specified object.
+                Object.prototype.propertyIsEnumerable() Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
+                Object.prototype.toSource()             Returns string containing the source of an object literal representing the object that this method is called upon; you can use this value to create a new object.
+                Object.prototype.toLocaleString()       Calls toString().
+                Object.prototype.toString()             Returns a string representation of the object.
+                Object.prototype.unwatch()              Removes a watchpoint from a property of the object.
+                Object.prototype.valueOf()              Returns the primitive value of the specified object.
+                Object.prototype.watch()                Adds a watchpoint to a property of the object.
+        Object Methods
+            Method                          Description 
+            Object.assign()                 Copies the values of all enumerable own properties from one or more source objects to a target object.
+            Object.create()                 Creates a new object with the specified prototype object and properties.
+            Object.defineProperty()         Adds the named property described by a given descriptor to an object.
+            Object.defineProperties()       Adds the named properties described by the given descriptors to an object.
+            Object.entries()                Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
+            Object.freeze()                 Freezes an object. Other code cannot delete or change its properties.
+            Object.fromEntries()            Returns a new object from an iterable of [key, value] pairs.
+            Object.getOwnPropertyDescriptor() Returns a property descriptor for a named property on an object.
+            Object.getOwnPropertyDescriptors() Returns an object containing all own property descriptors for an object.
+            Object.getOwnPropertyNames()    Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
+            Object.getOwnPropertySymbols()  Returns an array of all symbol properties found directly upon a given object.
+            Object.getPrototypeOf()         Returns the prototype (internal [[Prototype]] property) of the specified object.
+            Object.is()                     Compares if two values are the same value. Equates all NaN values (which differs from both Abstract Equality Comparison and Strict Equality Comparison).
+            Object.isExtensible()           Determines if extending of an object is allowed.
+            Object.isFrozen()               Determines if an object was frozen.
+            Object.isSealed()               Determines if an object is sealed.
+            Object.keys()                   Returns an array containing the names of all of the given object's own enumerable string properties.
+            Object.preventExtensions()      Prevents any extensions of an object.
+            Object.seal()                   Prevents other code from deleting properties of an object.  
+            Object.setPrototypeOf()         Sets the object's prototype (its internal [[Prototype]] property).  
+            Object.values()                 Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
+*/
+/*
+    Functions
+        A function defined as the property of an object, is called a method to the object.
+        A function designed to create new objects, is called an object constructor.
+
+        declared function, 
+            not executed until called upon
+            since function declarations are not executable statements on their own you don't end them with a ; semicolon
+                function functionName(parameters) {
+                    // code to be executed
+                }
+        function expression
+            not executed until called upon 
+            function stored as a variable to be later used
+            function expressions are NOT hoisted
+            semicolon here because it's part of an executable statement
+                var x = function (a, b) {return a * b};
+                var z = x(4, 3);
+        functions ARE OBJECTS
+            functions have methods and properties
+                function myFunction(a, b) {
+                    return arguments.length;
+            }
+        THIS keyword
+            for normal functions THIS refers to the object that CALLED THE FUNCTION
+                undefined for global object with strict mode
+                refers to the global object without strict mode
+            arrow functions
+                any time THIS keyword is used inside the function it will always refer to the object that DEFINED the arrow function, 
+        function constructor, new Function()
+            create a function with the Function constructor
+                var myFunction = new Function("a", "b", "return a * b");
+                var x = myFunction(4, 3);
+                same as
+                var myFunction = function (a, b) {return a * b};
+        IIFE, immediately invoked function expression, 
+            aka self-invoking function expression
+            parentheses needed around the function to indicate that it is a function expression
+                (function () {
+                    var x = "Hello!!";  // I will invoke myself
+                })();
+        functions can be used in expressions 
+            function myFunction(a, b) {
+                return a * b;
+            }
+            var x = myFunction(4, 3) * 2;
+        Arrow functions
+            THIS keyword refers to the object that DEFINED THE FUNCTION
+            Arrow functions do not have their own this. They are not well suited for defining object methods.
+            Arrow functions are not hoisted. They must be defined before they are used.
+            using const is safer than using var, because a function expression is always constant value.
+            parentheses for the parameter can be ignored if there is just ONE parameter
+                const x = param1 => {
+                    return param1 + 1;
+                }
+            brackets and return keyword can be ignored if it is a single line statement
+                const = (val1, val2) => val1 + val2;
+        Hoisting
+            hoisting only works on variable declarations and function declarations, NOT function expressions
+                myFunction(5);
+                function myFunction(y) {
+                    return y * y;
+                }
+        Parameters and Arguments
+            Function parameters are the names listed in the function definition.
+                function definitions do not specify data types for parameters.
+                functions do not perform type checking on the passed arguments.
+                unctions do not check the number of arguments received.
+            Function arguments are the real values passed to (and received by) the function.
+            Defaults
+                missing arguments(less than declared)
+                    the missing values are set to undefined
+                        function show(a,b) {
+                            console.log(a);
+                            console.log(b); // undefined
+                        }
+                        show("a");
+                default parameters
+                    add the = for each parameter and give it a default
+                    function (a=1, b=1) {
+                        // function code
+                    } 
+            arguments Object
+                a built in object 
+                is an array of the arguments passed in
+                    function add(a,b,c) {
+                        console.log(arguments);
+                        console.log(arguments.length);
+                    }
+                    add(1,2,3); 
+                if there are more arguments passed in than declared they can be accessed with the arguments object
+            Arguments 
+                Arguments passed by value
+                    JavaScript arguments are passed by value: The function only gets to know the values, not the argument's locations. UNLESS IT'S AN OBJECT
+                    If a function changes an argument's value, it does not change the parameter's original value.
+                objects passed by reference
+                    in JS object references are values
+                    objects passed in as arguments will be pass by reference
+                    if you change an object property in a function you change the original value
+                    Changes to object properties are visible (reflected) outside the function. hence MUTATIONS
+        .call() method
+            used to call a method with on an owner object
+            lets you call a method as if it were defined on that object, meaning the THIS keyword will reference the owner object
+                var person = {
+                    fullName: function() {
+                        return this.firstName + " " + this.lastName;
+                    }
+                    nameCityCountry: function(city, country) {
+                        return this.firstName + " " + this.lastName + "lives in " + city + "," + country;
+                    }
+                }
+                var person1 = {
+                    firstName:"John",
+                    lastName: "Doe"
+                }
+                person.fullName.call(person1);  // Will return "John Doe"   
+            .call() also accepts arguments that can be passed in for the function you're calling
+                var x = person.fullName.call(person1, "Oslo", "Norway");     
+        .apply() method
+            similar to .call()
+            difference is it takes arguments as an ARRAY, not one by one
+            trick for a max number in an array
+                JavaScript arrays do not have a max() method, you can apply the Math.max() method instead
+                Math.max.apply(null, [1,2,3]); // Willreturn 3   
+            strict mode
+                In JavaScript strict mode, IF the first argument of the apply() method is not an object, it becomes the owner (object) of the invoked function. In "non-strict" mode, it becomes the global object.
+        local variables in a function
+            created when the function is invoked and deleted when the function is finished
+        Closures
+            A closure is a function having access to the parent scope, even after the parent function has closed.
+            this is possible if you return an inner function, it will still have access to any of the variables that were set on the same level as the function, meaning anything that was a child of the parent
+            we also store the function with the closure scope in a variable, keeping the scope and those variables "alive"
+                // the function that was returned has still has access to the parent's scope, that scope is still "alive" 
+                var add = (function () {
+                    var counter = 0;
+                    return function () {counter += 1; return counter}
+                })();
+                add();
+                add();
+                add();  // returns 3
         
-
-            
-
-            
-    
 */
 
 
