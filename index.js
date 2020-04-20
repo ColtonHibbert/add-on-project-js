@@ -971,9 +971,23 @@ x is 4 and y is 3
         4 In a function not in strict mode, this refers to the global object.
         5 In an event, this refers to the element that received the event, aka the element of the event
         6 explicit binding, Methods like call(), and apply() can refer this to any object. means you can call functions and stuff as if they were actually on a particular object. these are explicit ways to bind
-           
+        Be aware the object that called the function may not be the object that you were expecting and will give you a THIS reference you weren't expecting
+        THIS will refer to the ORIGINAL call site
+            like with a callback, 
+                var MyObject = function (){
+                    this.name = 'MyObjectName';
+                    this.myProperty = 'property';
+                };
+                MyObject.prototype.doStuff = function (action) {
+                    console.log(this.name + ' is ' + action + '!');
+                }
+                var obj = new MyObject();
+                setTimeout(obj.doStuff, 1000, 'awesome'); // prints ' is awesome!' after a 1 second delay.
+                                ^ Here's our callback!
+                // THIS refers to setTimeout because that was the ORIGINAL call site, obj.doStuff was a callback and not the ORIGINAL callsite
+                // use .bind() to avoid this from happening
         explicit binding example 
-            call() and apply()
+            call() and apply() 
                 var person1 = {
                     fullName: function() {
                         return this.firstName + " " + this.lastName;
@@ -984,9 +998,31 @@ x is 4 and y is 3
                     lastName: "Doe",
                 }
                 person1.fullName.call(person2);  // Will return "John Doe"
-
-        More Here .bind(this) method is used to...
-
+            .bind(objectName)
+                .bind() called on a function
+                    binds an object to a function, so THIS will always refer to the bound object
+                        var sayMyName = function () {
+                            console.log('My name is ' + this.name);
+                        };
+                        var jake = {
+                            name: 'Jake'
+                        }
+                        var sayMyName = sayMyName.bind(jake);
+                        sayMyName(); // 'My name is Jake'
+                .bind()     
+                    used to explicitly bind a callback, 
+                    used to explicitly bind to what you want 
+                        BECAUSE the callsite may not be the object that you think, 
+                        like when you pass in a callback function as an argument THIS refers to the parent object
+                            var MyObject = function (){
+                                this.name = 'MyObjectName';
+                                this.myProperty = 'property';
+                            };
+                            MyObject.prototype.doStuff = function (action) {
+                                console.log(this.name + ' is ' + action + '!');
+                            }
+                            var obj = new MyObject();
+                            setTimeout(obj.doStuff.bind(obj), 1000, 'awesome'); // prints 'MyObjectName is awesome!' after a 1 second delay           
         arrow functions
             in regular functions this refers to the object that called it, window, document, button, whatever
             in ARROW functions this refers to the OBJECT THAT DEFINED THE ARROW FUNCTION, Always
@@ -1397,6 +1433,7 @@ x is 4 and y is 3
             A closure is a function having access to the parent scope, even after the parent function has closed.
             this is possible if you return an inner function, it will still have access to any of the variables that were set on the same level as the function, meaning anything that was a child of the parent
             we also store the function with the closure scope in a variable, keeping the scope and those variables "alive"
+            this makes it possible to have "private" variables, meaning just that function with closure has access to them and will remember them
                 // the function that was returned has still has access to the parent's scope, that scope is still "alive" 
                 var add = (function () {
                     var counter = 0;
@@ -1405,6 +1442,28 @@ x is 4 and y is 3
                 add();
                 add();
                 add();  // returns 3
+        Callback functions
+            any function that is passed to another function as an argument, this argument function is the callback function
+            used to make sure functions execute in a certain order, in a way it's a fashion of programming asynchronously
+                function doHomework(subject, callback) {
+                    alert(`Starting my ${subject} homework.`);
+                    callback();
+                }
+                function alertFinished(){
+                    alert('Finished my homework');
+                }
+                doHomework('math', alertFinished);
+        Higher-Order functions
+            A function that accepts and/or returns another function
+                all functions that take callback functions as arguments are higher-order, even if it doesn't return a function
+                a higher order function may not take a callback as an argument though, if it returns a function as its result then it's also higher order
+            called "higher" because instead of operating on primitives it operates on a function, aka like more high level
+            
+                
+
+
+
+                
         
 */
 
